@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-#if NETFX_CORE
+#if UNITY_EDITOR
+#elif UNITY_WSA
 using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +11,11 @@ using Windows.UI.Xaml.Controls;
 
 public class BrightnessOverrideComponent : MonoBehaviour
 {
-#if NETFX_CORE
+#if UNITY_EDITOR
+    private void InitBo() { }
+    public float Brightness { get; set; }
+    private void DisableBo() { }
+#elif UNITY_WSA
     private BrightnessOverride bo;
     private void InitBo()
     {
@@ -57,11 +62,6 @@ public class BrightnessOverrideComponent : MonoBehaviour
             this.bo.StopOverride();
         }
     }
-
-#else
-    private void InitBo() { }
-    public float Brightness { get; set; }
-    private void DisableBo() { }
 #endif
 
 
